@@ -23,13 +23,19 @@ class ViewController: UIViewController {
     // プレビュー表示用のレイヤ
     var cameraPreviewLayer : AVCaptureVideoPreviewLayer?
 
+    var previewImage =  UIImageView()
+    
     
     @IBOutlet weak var alpha: UILabel!
     
     @IBAction func sliderValue(_ sender: UISlider) {
-        alpha.text = String(sender.value)
+        let sliderValue:Int = Int(sender.value)
+        alpha.text = String(sliderValue)
     }
-//    
+    @IBAction func deleteView(_ sender: Any) {
+        previewImage.removeFromSuperview()
+    }
+    //
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -68,11 +74,18 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
             // Data型をUIImageオブジェクトに変換
             let uiImage = UIImage(data: imageData)
             let imageSample = UIImageView()
+            
             imageSample.image = uiImage
             imageSample.frame = CGRect(x:0, y:0, width:view.frame.size.width, height:view.frame.size.height)
             imageSample.alpha = 0.5
+            
+//            let a = self.view.subviews
+//            for b in a {
+//                b.removeFromSuperview()
+//            }
             // 写真ライブラリに画像を保存
             UIImageWriteToSavedPhotosAlbum(uiImage!, nil,nil,nil)
+            previewImage = imageSample
             self.view.addSubview(imageSample)
 
         }
