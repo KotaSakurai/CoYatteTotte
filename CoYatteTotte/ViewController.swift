@@ -24,7 +24,12 @@ class ViewController: UIViewController {
     var cameraPreviewLayer : AVCaptureVideoPreviewLayer?
 
     
+    @IBOutlet weak var alpha: UILabel!
     
+    @IBAction func sliderValue(_ sender: UISlider) {
+        alpha.text = String(sender.value)
+    }
+//    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -33,6 +38,7 @@ class ViewController: UIViewController {
         setupInputOutput()
         setupPreviewLayer()
         captureSession.startRunning()
+        styleCaptureButton()
     }
     
     override func didReceiveMemoryWarning() {
