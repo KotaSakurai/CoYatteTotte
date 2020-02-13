@@ -29,11 +29,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var alpha: UILabel!
     
     @IBAction func sliderValue(_ sender: UISlider) {
-        let sliderValue:Int = Int(sender.value)
-        alpha.text = String(sliderValue)
+//        let sliderValue:Int = Int(sender.value)
+        alpha.text = String(sender.value)
+        previewImage.alpha = CGFloat(sender.value)
     }
+    
     @IBAction func deleteView(_ sender: Any) {
         previewImage.removeFromSuperview()
+        cameraButton.isEnabled = true
     }
     //
     override func viewDidLoad() {
@@ -60,6 +63,7 @@ class ViewController: UIViewController {
         settings.isAutoStillImageStabilizationEnabled = true
         // 撮影された画像をdelegateメソッドで処理
         self.photoOutput?.capturePhoto(with: settings, delegate: self as! AVCapturePhotoCaptureDelegate)
+        cameraButton.isEnabled = false
     }
 
    
@@ -79,15 +83,10 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
             imageSample.frame = CGRect(x:0, y:0, width:view.frame.size.width, height:view.frame.size.height)
             imageSample.alpha = 0.5
             
-//            let a = self.view.subviews
-//            for b in a {
-//                b.removeFromSuperview()
-//            }
             // 写真ライブラリに画像を保存
             UIImageWriteToSavedPhotosAlbum(uiImage!, nil,nil,nil)
             previewImage = imageSample
             self.view.addSubview(imageSample)
-
         }
     }
 }
@@ -150,12 +149,7 @@ extension ViewController{
         self.cameraPreviewLayer?.frame = view.frame
         self.view.layer.insertSublayer(self.cameraPreviewLayer!, at: 1)
     }
-    
-    func setupPhotoLayer() {
-        
-        self.view.layer.insertSublayer(self.cameraPreviewLayer!, at: 0)
-    }
-    
+
 
     // ボタンのスタイルを設定
     func styleCaptureButton() {
