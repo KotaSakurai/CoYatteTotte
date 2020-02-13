@@ -80,7 +80,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
             let imageSample = UIImageView()
             
             imageSample.image = uiImage
-            imageSample.frame = CGRect(x:0, y:0, width:view.frame.size.width, height:view.frame.size.height)
+            imageSample.frame = CGRect(x:0, y:100, width:view.frame.size.width, height: view.frame.size.width * ( 4 / 3 ))
             imageSample.alpha = 0.5
             
             // 写真ライブラリに画像を保存
