@@ -55,7 +55,6 @@ class ViewController: UIViewController {
     
     @IBAction func deleteView(_ sender: Any) {
         previewImageView.isHidden = true
-        cameraButton.isEnabled = true
         status = .none
     }
     //
@@ -111,20 +110,17 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(), let uiImage = UIImage(data: imageData) {
             
-            previewImageView.image = uiImage
-            previewImageView.alpha = 0.5
-            previewImageView.isHidden = false
-            
-            
+
             if status == .none {
+                previewImageView.image = uiImage
+                previewImageView.alpha = 0.5
+                previewImageView.isHidden = false
                 self.status = .preview
                 return
             }
 
             // 写真ライブラリに画像を保存
             UIImageWriteToSavedPhotosAlbum(uiImage, nil,nil,nil)
-            cameraButton.isEnabled = false
-            status = .saving
         }
     }
 }
