@@ -45,17 +45,47 @@ class ViewController: UIViewController {
     }()
     
     var status: Status = .none
-
     
-    @IBAction func sliderValue(_ sender: UISlider) {
+    let slider: UISlider = {
+        let view = UISlider.init()
+        view.maximumValue = 1
+        view.minimumValue = 0
+        view.value = 0.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+    
+    let resetButton: UIButton = {
+        let view = UIButton.init()
+        view.setTitle("Reset", for: .normal)
+        view.setTitleColor(.white, for: .normal)
+        view.titleLabel?.textAlignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let privacyButton: UIButton = {
+        let view = UIButton.init()
+        view.setTitle("PrivacyPolicy", for: .normal)
+        view.titleLabel?.font = .systemFont(ofSize: 12)
+        view.setTitleColor(.systemBlue, for: .normal)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    @IBOutlet weak var Policy: UITextView!
+
+    @objc func sliderValue(_ sender: UISlider) {
 //        let sliderValue:Int = Int(sender.value)
 //        alpha.text = String(sender.value)
         previewImageView.alpha = CGFloat(sender.value)
     }
     
-    @IBAction func deleteView(_ sender: Any) {
+    @objc func deleteView(_ sender: Any) {
         previewImageView.isHidden = true
         status = .none
+        slider.isHidden = true
     }
     //
     override func viewDidLoad() {
@@ -63,6 +93,14 @@ class ViewController: UIViewController {
         // preview
         self.view.addSubview(cameraImageView)
         self.view.addSubview(previewImageView)
+        self.view.addSubview(slider)
+        self.view.addSubview(resetButton)
+        self.view.addSubview(privacyButton)
+
+        // Settings
+        self.slider.addTarget(self, action: #selector(sliderValue), for: .valueChanged)
+        self.resetButton.addTarget(self, action: #selector(deleteView), for: .touchDown)
+        self.privacyButton.addTarget(self, action: #selector(openPrivacy), for: .touchDown)
 
         setupCaptureSession()
         setupDevice()
@@ -83,7 +121,19 @@ class ViewController: UIViewController {
             cameraImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
             cameraImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             cameraImageView.widthAnchor.constraint(equalToConstant: view.bounds.width),
-            cameraImageView.heightAnchor.constraint(equalToConstant: height)
+            cameraImageView.heightAnchor.constraint(equalToConstant: height),
+            slider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            slider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            slider.topAnchor.constraint(equalTo: cameraImageView.bottomAnchor, constant: 10),
+            cameraButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            cameraButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            cameraButton.widthAnchor.constraint(equalToConstant: 60),
+            cameraButton.heightAnchor.constraint(equalToConstant: 60),
+            resetButton.leadingAnchor.constraint(equalTo: cameraButton.trailingAnchor, constant: 10),
+            resetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            resetButton.centerYAnchor.constraint(equalTo: cameraButton.centerYAnchor, constant: 0),
+            privacyButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            privacyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
     
@@ -91,6 +141,11 @@ class ViewController: UIViewController {
            super.didReceiveMemoryWarning()
            // Dispose of any resources that can be recreated.
        }
+    
+     @objc func openPrivacy() {
+        let url: URL = URL(string: "https://docs.google.com/document/d/e/2PACX-1vRvqJwP9YRGIbvmdrLTXgVxepGZVpO7ZrRCXmDZKAk4wCtxwOoDmdrWsRFdGxlHP4J_UXkGK7DlZ3eG/pub")!
+        UIApplication.shared.open(url)
+    }
     
     @IBAction func cameraButton_TouchUpInside(_ sender: Any) {
         let settings = AVCapturePhotoSettings()
@@ -116,6 +171,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
                 previewImageView.alpha = 0.5
                 previewImageView.isHidden = false
                 self.status = .preview
+                self.slider.isHidden = false
                 return
             }
 
@@ -188,6 +244,7 @@ extension ViewController{
         cameraButton.layer.borderWidth = 5
         cameraButton.clipsToBounds = true
         cameraButton.layer.cornerRadius = min(cameraButton.frame.width, cameraButton.frame.height) / 2
+        cameraButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
 }
