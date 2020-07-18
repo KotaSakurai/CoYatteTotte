@@ -150,7 +150,7 @@ class ViewController: UIViewController {
     @IBAction func cameraButton_TouchUpInside(_ sender: Any) {
         let settings = AVCapturePhotoSettings()
         // フラッシュの設定
-        settings.flashMode = .auto
+//        settings.flashMode = .auto
         // カメラの手ぶれ補正
         // settings.isAutoStillImageStabilizationEnabled = true
         // 撮影された画像をdelegateメソッドで処理
