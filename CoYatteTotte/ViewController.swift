@@ -45,12 +45,15 @@ class ViewController: UIViewController {
     }()
     
     var status: Status = .none
-    
+        
     let slider: UISlider = {
         let view = UISlider.init()
         view.maximumValue = 1
         view.minimumValue = 0
         view.value = 0.5
+        view.minimumTrackTintColor = .brandColor
+        view.maximumTrackTintColor = UIColor.white
+        view.thumbTintColor = .brandColor
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true
         return view
@@ -59,7 +62,7 @@ class ViewController: UIViewController {
     let resetButton: UIButton = {
         let view = UIButton.init()
         view.setTitle("Reset", for: .normal)
-        view.setTitleColor(.white, for: .normal)
+        view.setTitleColor(.brandColor, for: .normal)
         view.titleLabel?.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -68,8 +71,8 @@ class ViewController: UIViewController {
     let privacyButton: UIButton = {
         let view = UIButton.init()
         view.setTitle("PrivacyPolicy", for: .normal)
+        view.setTitleColor(.brandColor, for: .normal)
         view.titleLabel?.font = .systemFont(ofSize: 12)
-        view.setTitleColor(.systemBlue, for: .normal)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -90,6 +93,7 @@ class ViewController: UIViewController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
         // preview
         self.view.addSubview(cameraImageView)
         self.view.addSubview(previewImageView)
@@ -240,7 +244,8 @@ extension ViewController{
 
     // ボタンのスタイルを設定
     func styleCaptureButton() {
-        cameraButton.layer.borderColor = UIColor.white.cgColor
+        cameraButton.layer.borderColor = UIColor.brandColor.cgColor
+        cameraButton.layer.backgroundColor = UIColor.brandColor.cgColor
         cameraButton.layer.borderWidth = 5
         cameraButton.clipsToBounds = true
         cameraButton.layer.cornerRadius = min(cameraButton.frame.width, cameraButton.frame.height) / 2

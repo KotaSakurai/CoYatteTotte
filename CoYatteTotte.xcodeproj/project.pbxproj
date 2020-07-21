@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F63BD2924C5EF3500CC85BE /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F63BD2824C5EF3500CC85BE /* UIColor+Extensions.swift */; };
 		1FCCBAFC23F4679C0051E3EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCBAFB23F4679C0051E3EF /* AppDelegate.swift */; };
 		1FCCBAFE23F4679C0051E3EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCBAFD23F4679C0051E3EF /* SceneDelegate.swift */; };
 		1FCCBB0023F4679C0051E3EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCBAFF23F4679C0051E3EF /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F63BD2824C5EF3500CC85BE /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		1FCCBAF823F4679C0051E3EF /* CoYatteTotte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoYatteTotte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCCBAFB23F4679C0051E3EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCCBAFD23F4679C0051E3EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +39,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F63BD2724C5EEFA00CC85BE /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1F63BD2824C5EF3500CC85BE /* UIColor+Extensions.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		1FCCBAEF23F4679C0051E3EF = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +66,7 @@
 		1FCCBAFA23F4679C0051E3EF /* CoYatteTotte */ = {
 			isa = PBXGroup;
 			children = (
+				1F63BD2724C5EEFA00CC85BE /* extensions */,
 				1FCCBAFB23F4679C0051E3EF /* AppDelegate.swift */,
 				1FCCBAFD23F4679C0051E3EF /* SceneDelegate.swift */,
 				1FCCBAFF23F4679C0051E3EF /* ViewController.swift */,
@@ -141,6 +152,7 @@
 				1FCCBB0023F4679C0051E3EF /* ViewController.swift in Sources */,
 				1FCCBAFC23F4679C0051E3EF /* AppDelegate.swift in Sources */,
 				1FCCBAFE23F4679C0051E3EF /* SceneDelegate.swift in Sources */,
+				1F63BD2924C5EF3500CC85BE /* UIColor+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,14 +297,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.4;
+				CURRENT_PROJECT_VERSION = 1.6;
 				DEVELOPMENT_TEAM = 7LC8G3FRCP;
 				INFOPLIST_FILE = CoYatteTotte/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Ittoko.CoYatteTotte;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -305,14 +318,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.4;
+				CURRENT_PROJECT_VERSION = 1.6;
 				DEVELOPMENT_TEAM = 7LC8G3FRCP;
 				INFOPLIST_FILE = CoYatteTotte/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Ittoko.CoYatteTotte;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
