@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     }
     
     let context = CIContext()
-    let CrystallizeFilter = CIFilter(name: "CISepiaTone")
+    let CrystallizeFilter = CIFilter(name: "CIPhotoEffectInstant")
     
     var captureSession = AVCaptureSession()
     var mainCamera: AVCaptureDevice?
@@ -276,7 +276,6 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         
         let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let cameraImage = CIImage(cvImageBuffer: imageBuffer!)
-        
         
         CrystallizeFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
 
