@@ -15,7 +15,10 @@ class ViewController: UIViewController {
         case preview
         case saving
     }
-
+    
+    let context = CIContext()
+    let CrystallizeFilter = CIFilter(name: "CISepiaTone")
+    
     var captureSession = AVCaptureSession()
     var mainCamera: AVCaptureDevice?
     // インカメの管理オブジェクトの作成
@@ -115,7 +118,7 @@ class ViewController: UIViewController {
 
         let height: CGFloat = view.bounds.width * (4 / 3)
         self.cameraPreviewLayer.frame = CGRect.init(origin: .zero, size: CGSize.init(width: view.bounds.width, height: height))
-        self.cameraImageView.layer.insertSublayer(self.cameraPreviewLayer, at: 0)
+//        self.cameraImageView.layer.insertSublayer(self.cameraPreviewLayer, at: 0)
 
         NSLayoutConstraint.activate([
             previewImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
@@ -169,9 +172,16 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(), let uiImage = UIImage(data: imageData) {
             
+            let filterdImage = CIImage(image: uiImage)!
+            
+            CrystallizeFilter!.setValue(filterdImage, forKey: kCIInputImageKey)
+            
+            let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: filterdImage.extent)!
 
+            let uiImageFilteredImage = UIImage(cgImage: cgImage, scale: 0,orientation: uiImage.imageOrientation)
+            
             if status == .none {
-                previewImageView.image = uiImage
+                previewImageView.image = uiImageFilteredImage
                 previewImageView.alpha = 0.5
                 previewImageView.isHidden = false
                 self.status = .preview
@@ -180,7 +190,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
             }
 
             // 写真ライブラリに画像を保存
-            UIImageWriteToSavedPhotosAlbum(uiImage, nil,nil,nil)
+            UIImageWriteToSavedPhotosAlbum(uiImageFilteredImage, nil,nil,nil)
         }
     }
 }
@@ -224,7 +234,14 @@ extension ViewController{
             
             // 出力ファイルのフォーマットを指定
             photoOutput!.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey : AVVideoCodecType.jpeg])], completionHandler: nil)
+            
+            let videoOutput: AVCaptureVideoDataOutput = .init()
+            captureSession.addOutput(videoOutput)
+            videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue.main)
             captureSession.addOutput(photoOutput!)
+            if let connection = videoOutput.connection(with: .video) {
+                connection.videoOrientation = .portrait
+            }
         } catch {
             print(error)
         }
@@ -254,3 +271,20 @@ extension ViewController{
     
 }
 
+extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        
+        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+        let cameraImage = CIImage(cvImageBuffer: imageBuffer!)
+        
+        
+        CrystallizeFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
+
+        let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: cameraImage.extent)!
+
+        DispatchQueue.main.async {
+            let filteredImage = UIImage(cgImage: cgImage)
+            self.cameraImageView.image = filteredImage
+        }
+    }
+}
