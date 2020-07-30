@@ -28,6 +28,15 @@ class SettingsViewController: UIViewController {
         return view
     }()
     
+    let settingGreenColorButton: UIButton = {
+        let view = UIButton.init()
+        view.setTitle("Green", for: .normal)
+        view.setTitleColor(.gray, for: .normal)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     let settingDefaultColorButton: UIButton = {
        let view = UIButton.init()
        view.setTitle("Default", for: .normal)
@@ -48,6 +57,10 @@ class SettingsViewController: UIViewController {
          UserDefaults.standard.set("B7CFE2", forKey: "ui-color")
     }
     
+    @objc func setGreenUiColor() {
+         UserDefaults.standard.set("A3C6AF", forKey: "ui-color")
+    }
+    
     @objc func setDefaultUiColor() {
          UserDefaults.standard.set("f2abae", forKey: "ui-color")
     }
@@ -59,10 +72,12 @@ class SettingsViewController: UIViewController {
         
         self.view.addSubview(privacyButton)
         self.view.addSubview(settingBlueColorButton)
+        self.view.addSubview(settingGreenColorButton)
         self.view.addSubview(settingDefaultColorButton)
         
         self.privacyButton.addTarget(self, action: #selector(openPrivacy), for: .touchDown)
         self.settingBlueColorButton.addTarget(self, action: #selector(setBlueUiColor), for: .touchDown)
+        self.settingGreenColorButton.addTarget(self, action: #selector(setGreenUiColor), for: .touchDown)
         self.settingDefaultColorButton.addTarget(self, action: #selector(setDefaultUiColor), for: .touchDown)
         
         NSLayoutConstraint.activate([
@@ -72,7 +87,10 @@ class SettingsViewController: UIViewController {
             settingBlueColorButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             settingBlueColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            settingDefaultColorButton.centerYAnchor.constraint(equalTo: settingBlueColorButton.bottomAnchor, constant: 50),
+            settingGreenColorButton.centerYAnchor.constraint(equalTo: settingBlueColorButton.bottomAnchor, constant: 50),
+            settingGreenColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            settingDefaultColorButton.centerYAnchor.constraint(equalTo: settingGreenColorButton.bottomAnchor, constant: 50),
             settingDefaultColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
