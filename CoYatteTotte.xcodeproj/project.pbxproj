@@ -8,16 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		1F63BD2924C5EF3500CC85BE /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F63BD2824C5EF3500CC85BE /* UIColor+Extensions.swift */; };
+		1FB2E84824D30F2500E913A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2E84724D30F2500E913A7 /* GoogleService-Info.plist */; };
 		1FCCBAFC23F4679C0051E3EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCBAFB23F4679C0051E3EF /* AppDelegate.swift */; };
 		1FCCBAFE23F4679C0051E3EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCBAFD23F4679C0051E3EF /* SceneDelegate.swift */; };
 		1FCCBB0023F4679C0051E3EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCBAFF23F4679C0051E3EF /* ViewController.swift */; };
 		1FCCBB0323F4679C0051E3EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCCBB0123F4679C0051E3EF /* Main.storyboard */; };
 		1FCCBB0523F4679D0051E3EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FCCBB0423F4679D0051E3EF /* Assets.xcassets */; };
 		1FCCBB0823F4679D0051E3EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCCBB0623F4679D0051E3EF /* LaunchScreen.storyboard */; };
+		67D7D803FEBD6D8E59DA6438 /* Pods_CoYatteTotte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFCAFA3EB334121EF5DCA38 /* Pods_CoYatteTotte.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1F63BD2824C5EF3500CC85BE /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		1FB2E84724D30F2500E913A7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1FCCBAF823F4679C0051E3EF /* CoYatteTotte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoYatteTotte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCCBAFB23F4679C0051E3EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCCBAFD23F4679C0051E3EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +29,9 @@
 		1FCCBB0423F4679D0051E3EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FCCBB0723F4679D0051E3EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FCCBB0923F4679D0051E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30320107A405EE8F1B32C79A /* Pods-CoYatteTotte.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoYatteTotte.debug.xcconfig"; path = "Target Support Files/Pods-CoYatteTotte/Pods-CoYatteTotte.debug.xcconfig"; sourceTree = "<group>"; };
+		6236BE78197CADAABE6D297E /* Pods-CoYatteTotte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoYatteTotte.release.xcconfig"; path = "Target Support Files/Pods-CoYatteTotte/Pods-CoYatteTotte.release.xcconfig"; sourceTree = "<group>"; };
+		BBFCAFA3EB334121EF5DCA38 /* Pods_CoYatteTotte.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoYatteTotte.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67D7D803FEBD6D8E59DA6438 /* Pods_CoYatteTotte.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +59,8 @@
 			children = (
 				1FCCBAFA23F4679C0051E3EF /* CoYatteTotte */,
 				1FCCBAF923F4679C0051E3EF /* Products */,
+				FF1DD893FC2CE6DFF2163C8B /* Pods */,
+				DBECC80027819D29649B8F58 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +75,7 @@
 		1FCCBAFA23F4679C0051E3EF /* CoYatteTotte */ = {
 			isa = PBXGroup;
 			children = (
+				1FB2E84724D30F2500E913A7 /* GoogleService-Info.plist */,
 				1F63BD2724C5EEFA00CC85BE /* extensions */,
 				1FCCBAFB23F4679C0051E3EF /* AppDelegate.swift */,
 				1FCCBAFD23F4679C0051E3EF /* SceneDelegate.swift */,
@@ -78,6 +88,24 @@
 			path = CoYatteTotte;
 			sourceTree = "<group>";
 		};
+		DBECC80027819D29649B8F58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBFCAFA3EB334121EF5DCA38 /* Pods_CoYatteTotte.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF1DD893FC2CE6DFF2163C8B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				30320107A405EE8F1B32C79A /* Pods-CoYatteTotte.debug.xcconfig */,
+				6236BE78197CADAABE6D297E /* Pods-CoYatteTotte.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -85,9 +113,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FCCBB0C23F4679D0051E3EF /* Build configuration list for PBXNativeTarget "CoYatteTotte" */;
 			buildPhases = (
+				B27A955602B99D25AF318BD9 /* [CP] Check Pods Manifest.lock */,
 				1FCCBAF423F4679C0051E3EF /* Sources */,
 				1FCCBAF523F4679C0051E3EF /* Frameworks */,
 				1FCCBAF623F4679C0051E3EF /* Resources */,
+				286D048BFF8F44236296F33B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -137,12 +167,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FCCBB0823F4679D0051E3EF /* LaunchScreen.storyboard in Resources */,
+				1FB2E84824D30F2500E913A7 /* GoogleService-Info.plist in Resources */,
 				1FCCBB0523F4679D0051E3EF /* Assets.xcassets in Resources */,
 				1FCCBB0323F4679C0051E3EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		286D048BFF8F44236296F33B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoYatteTotte/Pods-CoYatteTotte-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoYatteTotte/Pods-CoYatteTotte-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoYatteTotte/Pods-CoYatteTotte-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B27A955602B99D25AF318BD9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CoYatteTotte-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1FCCBAF423F4679C0051E3EF /* Sources */ = {
@@ -294,6 +367,7 @@
 		};
 		1FCCBB0D23F4679D0051E3EF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30320107A405EE8F1B32C79A /* Pods-CoYatteTotte.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -315,6 +389,7 @@
 		};
 		1FCCBB0E23F4679D0051E3EF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6236BE78197CADAABE6D297E /* Pods-CoYatteTotte.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
