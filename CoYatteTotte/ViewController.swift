@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseAnalytics
 
 class ViewController: UIViewController {
     enum Status {
@@ -186,11 +187,20 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
                 previewImageView.isHidden = false
                 self.status = .preview
                 self.slider.isHidden = false
+                
+                Analytics.logEvent("Preview", parameters: [
+                  "type": "ShotPreviewButton" as NSObject,
+                ])
+                
                 return
             }
 
             // 写真ライブラリに画像を保存
             UIImageWriteToSavedPhotosAlbum(uiImageFilteredImage, nil,nil,nil)
+            
+            Analytics.logEvent("Save", parameters: [
+              "type": "ShotSaveButton" as NSObject,
+            ])
         }
     }
 }
