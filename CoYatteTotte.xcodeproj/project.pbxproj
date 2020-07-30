@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,8 @@
 		1FCCBB0323F4679C0051E3EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCCBB0123F4679C0051E3EF /* Main.storyboard */; };
 		1FCCBB0523F4679D0051E3EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FCCBB0423F4679D0051E3EF /* Assets.xcassets */; };
 		1FCCBB0823F4679D0051E3EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCCBB0623F4679D0051E3EF /* LaunchScreen.storyboard */; };
+		1FFB3FE524D3153B002B7AF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB3FE424D3153B002B7AF6 /* HeaderView.swift */; };
+		1FFB3FE724D32722002B7AF6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB3FE624D32722002B7AF6 /* SettingsViewController.swift */; };
 		67D7D803FEBD6D8E59DA6438 /* Pods_CoYatteTotte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFCAFA3EB334121EF5DCA38 /* Pods_CoYatteTotte.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		1FCCBB0423F4679D0051E3EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FCCBB0723F4679D0051E3EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FCCBB0923F4679D0051E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FFB3FE424D3153B002B7AF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		1FFB3FE624D32722002B7AF6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		30320107A405EE8F1B32C79A /* Pods-CoYatteTotte.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoYatteTotte.debug.xcconfig"; path = "Target Support Files/Pods-CoYatteTotte/Pods-CoYatteTotte.debug.xcconfig"; sourceTree = "<group>"; };
 		6236BE78197CADAABE6D297E /* Pods-CoYatteTotte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoYatteTotte.release.xcconfig"; path = "Target Support Files/Pods-CoYatteTotte/Pods-CoYatteTotte.release.xcconfig"; sourceTree = "<group>"; };
 		BBFCAFA3EB334121EF5DCA38 /* Pods_CoYatteTotte.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoYatteTotte.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +79,7 @@
 		1FCCBAFA23F4679C0051E3EF /* CoYatteTotte */ = {
 			isa = PBXGroup;
 			children = (
+				1FFB3FE324D3151E002B7AF6 /* Views */,
 				1FB2E84724D30F2500E913A7 /* GoogleService-Info.plist */,
 				1F63BD2724C5EEFA00CC85BE /* extensions */,
 				1FCCBAFB23F4679C0051E3EF /* AppDelegate.swift */,
@@ -84,8 +89,17 @@
 				1FCCBB0423F4679D0051E3EF /* Assets.xcassets */,
 				1FCCBB0623F4679D0051E3EF /* LaunchScreen.storyboard */,
 				1FCCBB0923F4679D0051E3EF /* Info.plist */,
+				1FFB3FE624D32722002B7AF6 /* SettingsViewController.swift */,
 			);
 			path = CoYatteTotte;
+			sourceTree = "<group>";
+		};
+		1FFB3FE324D3151E002B7AF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1FFB3FE424D3153B002B7AF6 /* HeaderView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		DBECC80027819D29649B8F58 /* Frameworks */ = {
@@ -102,7 +116,6 @@
 				30320107A405EE8F1B32C79A /* Pods-CoYatteTotte.debug.xcconfig */,
 				6236BE78197CADAABE6D297E /* Pods-CoYatteTotte.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -222,10 +235,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FFB3FE524D3153B002B7AF6 /* HeaderView.swift in Sources */,
 				1FCCBB0023F4679C0051E3EF /* ViewController.swift in Sources */,
 				1FCCBAFC23F4679C0051E3EF /* AppDelegate.swift in Sources */,
 				1FCCBAFE23F4679C0051E3EF /* SceneDelegate.swift in Sources */,
 				1F63BD2924C5EF3500CC85BE /* UIColor+Extensions.swift in Sources */,
+				1FFB3FE724D32722002B7AF6 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
