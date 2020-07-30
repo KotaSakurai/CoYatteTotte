@@ -21,6 +21,10 @@ class HeaderView: UIView {
         return button
     }()
     
+    func changeColor(color: UIColor) {
+        menuButton.tintColor = color
+    }
+    
     init() {
         super.init(frame: .zero)
         backgroundColor = .white

@@ -91,7 +91,26 @@ class ViewController: UIViewController {
     @objc func openSettings() {
         let settings = SettingsViewController.init()
         
+        settings.onClose = settingColor
         present(settings, animated: true, completion: nil)
+    }
+    
+    func settingColor() {
+        if let colorObject = UserDefaults.standard.object(forKey: "ui-color"), let color = colorObject as? String {
+            
+            let uiColor = UIColor.init(hex: color)
+            
+            cameraButton.layer.backgroundColor = uiColor.cgColor
+            cameraButton.layer.borderColor = uiColor.cgColor
+            resetButton.setTitleColor(uiColor, for: .normal)
+            headerView.changeColor(color: uiColor)
+        } else {
+            cameraButton.layer.backgroundColor = UIColor.brandColor.cgColor
+            cameraButton.layer.borderColor = UIColor.brandColor.cgColor
+            resetButton.setTitleColor(.brandColor, for: .normal)
+            headerView.changeColor(color: .brandColor)
+            UserDefaults.standard.set("f2abae", forKey: "ui-color")
+        }
     }
     
     //
@@ -104,7 +123,7 @@ class ViewController: UIViewController {
         self.view.addSubview(slider)
         self.view.addSubview(resetButton)
         self.view.addSubview(headerView)
-
+                
         // Settings
         self.slider.addTarget(self, action: #selector(sliderValue), for: .valueChanged)
         self.resetButton.addTarget(self, action: #selector(deleteView), for: .touchDown)
@@ -116,6 +135,7 @@ class ViewController: UIViewController {
         setupPreviewLayer()
         captureSession.startRunning()
         styleCaptureButton()
+        settingColor()
 
         let height: CGFloat = view.bounds.width * (4 / 3)
         self.cameraPreviewLayer.frame = CGRect.init(origin: .zero, size: CGSize.init(width: view.bounds.width, height: height))
@@ -271,8 +291,8 @@ extension ViewController{
 
     // ボタンのスタイルを設定
     func styleCaptureButton() {
-        cameraButton.layer.borderColor = UIColor.brandColor.cgColor
-        cameraButton.layer.backgroundColor = UIColor.brandColor.cgColor
+//        cameraButton.layer.borderColor = UIColor.brandColor.cgColor
+//        cameraButton.layer.backgroundColor = UIColor.brandColor.cgColor
         cameraButton.layer.borderWidth = 5
         cameraButton.clipsToBounds = true
         cameraButton.layer.cornerRadius = min(cameraButton.frame.width, cameraButton.frame.height) / 2
