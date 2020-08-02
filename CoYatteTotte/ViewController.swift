@@ -51,6 +51,8 @@ class ViewController: UIViewController {
     }()
     
     var status: Status = .none
+    
+    var filterStatus: Bool = true
         
     let slider: UISlider = {
         let view = UISlider.init()
@@ -91,7 +93,10 @@ class ViewController: UIViewController {
     @objc func openSettings() {
         let settings = SettingsViewController.init()
         
-        settings.onClose = settingColor
+        settings.onClose = {[weak self] in
+            self?.settingColor()
+            self?.settingFilter()
+        }
         present(settings, animated: true, completion: nil)
     }
     
@@ -104,13 +109,21 @@ class ViewController: UIViewController {
             cameraButton.layer.borderColor = uiColor.cgColor
             resetButton.setTitleColor(uiColor, for: .normal)
             headerView.changeColor(color: uiColor)
+            slider.minimumTrackTintColor = uiColor
+            slider.thumbTintColor = uiColor
         } else {
             cameraButton.layer.backgroundColor = UIColor.brandColor.cgColor
             cameraButton.layer.borderColor = UIColor.brandColor.cgColor
             resetButton.setTitleColor(.brandColor, for: .normal)
             headerView.changeColor(color: .brandColor)
+            slider.minimumTrackTintColor = .brandColor
+            slider.thumbTintColor = .brandColor
             UserDefaults.standard.set("f2abae", forKey: "ui-color")
         }
+    }
+    
+    func settingFilter() {
+        filterStatus = UserDefaults.standard.bool(forKey: "filter")
     }
     
     //
@@ -197,9 +210,15 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
             
             CrystallizeFilter!.setValue(filterdImage, forKey: kCIInputImageKey)
             
-            let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: filterdImage.extent)!
-
-            let uiImageFilteredImage = UIImage(cgImage: cgImage, scale: 0,orientation: uiImage.imageOrientation)
+            let uiImageFilteredImage: UIImage
+            
+            if filterStatus == false {
+               let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: filterdImage.extent)!
+                
+                uiImageFilteredImage = UIImage(cgImage: cgImage, scale: 0,orientation: uiImage.imageOrientation)
+            } else {
+                uiImageFilteredImage = UIImage(ciImage: filterdImage)
+            }
             
             if status == .none {
                 previewImageView.image = uiImageFilteredImage
@@ -234,7 +253,7 @@ extension ViewController{
     }
     
     // デバイスの設定
-    func setupDevice() {
+func setupDevice() {
         // カメラデバイスのプロパティ設定
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
         // プロパティの条件を満たしたカメラデバイスの取得
@@ -267,7 +286,9 @@ extension ViewController{
             
             let videoOutput: AVCaptureVideoDataOutput = .init()
             captureSession.addOutput(videoOutput)
+            
             videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue.main)
+            
             captureSession.addOutput(photoOutput!)
             if let connection = videoOutput.connection(with: .video) {
                 connection.videoOrientation = .portrait
@@ -276,7 +297,6 @@ extension ViewController{
             print(error)
         }
     }
-    
     
     // カメラのプレビューを表示するレイヤの設定
     func setupPreviewLayer() {
@@ -288,7 +308,6 @@ extension ViewController{
         self.cameraPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
     }
 
-
     // ボタンのスタイルを設定
     func styleCaptureButton() {
 //        cameraButton.layer.borderColor = UIColor.brandColor.cgColor
@@ -298,7 +317,6 @@ extension ViewController{
         cameraButton.layer.cornerRadius = min(cameraButton.frame.width, cameraButton.frame.height) / 2
         cameraButton.translatesAutoresizingMaskIntoConstraints = false
     }
-    
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -307,13 +325,19 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let cameraImage = CIImage(cvImageBuffer: imageBuffer!)
         
-        CrystallizeFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
+        if filterStatus == false {
+            CrystallizeFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
 
-        let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: cameraImage.extent)!
+            let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: cameraImage.extent)!
 
-        DispatchQueue.main.async {
-            let filteredImage = UIImage(cgImage: cgImage)
-            self.cameraImageView.image = filteredImage
+            DispatchQueue.main.async {
+                let filteredImage = UIImage(cgImage: cgImage)
+                self.cameraImageView.image = filteredImage
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.cameraImageView.image = UIImage(ciImage: cameraImage)
+            }
         }
     }
 }

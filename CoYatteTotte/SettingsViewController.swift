@@ -29,42 +29,34 @@ class SettingsViewController: UIViewController {
     
     let settingBlueColorButton: UIButton = {
         let view = UIButton.init()
-//        view.setTitle("Blue", for: .normal)
         view.frame = CGRect(x: 30, y: 150,
         width: 50, height:50)
         view.backgroundColor = UIColor.blueColor
-//        view.setTitleColor(.gray, for: .normal)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-        
+        view.layer.cornerRadius = 5.0;
         return view
     }()
     
     let settingGreenColorButton: UIButton = {
         let view = UIButton.init()
-//        UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 50))
-//        view.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
         view.frame = CGRect(x:130, y: 150,
         width: 50, height:50)
-//        view.setTitle("Green", for: .normal)
         view.backgroundColor = UIColor.greenColor
-//        view.setTitleColor(.gray, for: .normal)
-//        view.frame = CGRect(x: (view.frame.size.width / 2 ) - 150, y: (view.frame.size.height / 2 ) - 150, width: 50, height: 50)
-        
-//        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 5.0;
         return view
     }()
     
     let settingDefaultColorButton: UIButton = {
-       let view = UIButton.init()
-       view.frame = CGRect(x:230, y: 150,
-        width: 50, height:50)
+        let view = UIButton.init()
+        view.frame = CGRect(x:230, y: 150, width: 50, height:50)
         view.backgroundColor = UIColor.brandColor
-//       view.setTitle("Default", for: .normal)
-//       view.setTitleColor(.gray, for: .normal)
-//       view.translatesAutoresizingMaskIntoConstraints = false
-       
-       return view
+        view.layer.cornerRadius = 5.0;
+        return view
    }()
+    
+    @objc let settingFilter: UISwitch = {
+        let view = UISwitch.init()
+        return view
+    }()
     
     var onClose: () -> Void = { }
 
@@ -84,6 +76,11 @@ class SettingsViewController: UIViewController {
     @objc func setDefaultUiColor() {
          UserDefaults.standard.set("f2abae", forKey: "ui-color")
     }
+    
+    @objc func toggleDefaultFilter(sender: UISwitch) {
+        // toggleにしたい
+        UserDefaults.standard.set(sender.isOn, forKey: "filter")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,11 +92,15 @@ class SettingsViewController: UIViewController {
         self.view.addSubview(settingBlueColorButton)
         self.view.addSubview(settingGreenColorButton)
         self.view.addSubview(settingDefaultColorButton)
+        self.view.addSubview(settingFilter)
+        
+        settingFilter.isOn = UserDefaults.standard.bool(forKey: "filter")
         
         self.privacyButton.addTarget(self, action: #selector(openPrivacy), for: .touchDown)
         self.settingBlueColorButton.addTarget(self, action: #selector(setBlueUiColor), for: .touchDown)
         self.settingGreenColorButton.addTarget(self, action: #selector(setGreenUiColor), for: .touchDown)
         self.settingDefaultColorButton.addTarget(self, action: #selector(setDefaultUiColor), for: .touchDown)
+        self.settingFilter.addTarget(self, action: #selector(toggleDefaultFilter), for: .valueChanged)
         
         NSLayoutConstraint.activate([
             colorHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -111,14 +112,14 @@ class SettingsViewController: UIViewController {
             settingBlueColorButton.bottomAnchor.constraint(equalTo: colorHeader.bottomAnchor, constant: 20),
             settingBlueColorButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
-//            settingBlueColorButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            settingBlueColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//
             settingGreenColorButton.centerYAnchor.constraint(equalTo: settingBlueColorButton.bottomAnchor, constant: 50),
             settingGreenColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             settingDefaultColorButton.centerYAnchor.constraint(equalTo: settingGreenColorButton.bottomAnchor, constant: 50),
-            settingDefaultColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            settingDefaultColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
+            
+            settingFilter.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            settingFilter.topAnchor.constraint(equalTo: colorHeader.bottomAnchor, constant: 120),
         ])
     }
     
