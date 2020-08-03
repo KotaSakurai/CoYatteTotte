@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         case saving
     }
     var status: Status = .none
-    var filterStatus: Bool = true
+    var filterStatus: Bool = UserDefaults.standard.bool(forKey: "filter")
     
     let context = CIContext()
     let CrystallizeFilter = CIFilter(name: "CIPhotoEffectInstant")
@@ -130,6 +130,7 @@ class ViewController: UIViewController {
         self.view.addSubview(slider)
         self.view.addSubview(resetButton)
         self.view.addSubview(headerView)
+        print(filterStatus)
                 
         // Settings
         self.slider.addTarget(self, action: #selector(sliderValue), for: .valueChanged)
@@ -249,7 +250,7 @@ extension ViewController{
     }
     
     // デバイスの設定
-func setupDevice() {
+    func setupDevice() {
         // カメラデバイスのプロパティ設定
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
         // プロパティの条件を満たしたカメラデバイスの取得
@@ -320,7 +321,6 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let cameraImage = CIImage(cvImageBuffer: imageBuffer!)
         
         if filterStatus == true {
-            print("status true")
             CrystallizeFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
 
             let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: cameraImage.extent)!
@@ -330,7 +330,6 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 self.cameraImageView.image = filteredImage
             }
         } else {
-            print("status false")
             DispatchQueue.main.async {
                 self.cameraImageView.image = UIImage(ciImage: cameraImage)
             }

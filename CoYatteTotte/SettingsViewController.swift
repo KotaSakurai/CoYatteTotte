@@ -27,34 +27,45 @@ class SettingsViewController: UIViewController {
         return view
     }()
     
-    let settingBlueColorButton: UIButton = {
-        let view = UIButton.init()
-        view.frame = CGRect(x: 30, y: 150,
-        width: 50, height:50)
-        view.backgroundColor = UIColor.blueColor
-        view.layer.cornerRadius = 5.0;
-        return view
-    }()
-    
     let settingGreenColorButton: UIButton = {
         let view = UIButton.init()
-        view.frame = CGRect(x:130, y: 150,
-        width: 50, height:50)
+        view.frame = CGRect(x: 20, y: 130, width: 50, height:50)
         view.backgroundColor = UIColor.greenColor
         view.layer.cornerRadius = 5.0;
         return view
     }()
     
-    let settingDefaultColorButton: UIButton = {
+    let settingBlueColorButton: UIButton = {
         let view = UIButton.init()
-        view.frame = CGRect(x:230, y: 150, width: 50, height:50)
-        view.backgroundColor = UIColor.brandColor
+        view.frame = CGRect(x: 120, y: 130, width: 50, height:50)
+        view.backgroundColor = UIColor.blueColor
         view.layer.cornerRadius = 5.0;
         return view
-   }()
+    }()
+    
+    let settingDefaultColorButton: UIButton = {
+         let view = UIButton.init()
+         view.frame = CGRect(x: 220, y: 130, width: 50, height:50)
+         view.backgroundColor = UIColor.brandColor
+         view.layer.cornerRadius = 5.0;
+         return view
+    }()
+    
+    let filterHeader: UILabel = {
+        let view = UILabel.init()
+        view.text = "Filter Settings"
+        view.textColor = .gray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     @objc let settingFilter: UISwitch = {
         let view = UISwitch.init()
+        view.tintColor = .white
+        view.frame = CGRect(x: 20, y: 270, width: 50, height: 25)
+        view.backgroundColor = .white
+        view.layer.cornerRadius = view.frame.size.height/2;
+        view.onTintColor = UIColor.brandColor
         return view
     }()
     
@@ -92,6 +103,7 @@ class SettingsViewController: UIViewController {
         self.view.addSubview(settingBlueColorButton)
         self.view.addSubview(settingGreenColorButton)
         self.view.addSubview(settingDefaultColorButton)
+        self.view.addSubview(filterHeader)
         self.view.addSubview(settingFilter)
         
         settingFilter.isOn = UserDefaults.standard.bool(forKey: "filter")
@@ -118,8 +130,11 @@ class SettingsViewController: UIViewController {
             settingDefaultColorButton.centerYAnchor.constraint(equalTo: settingGreenColorButton.bottomAnchor, constant: 50),
             settingDefaultColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             
+            filterHeader.topAnchor.constraint(equalTo: colorHeader.bottomAnchor, constant: 60),
+            filterHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            settingFilter.topAnchor.constraint(equalTo: filterHeader.bottomAnchor, constant: 20),
             settingFilter.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            settingFilter.topAnchor.constraint(equalTo: settingBlueColorButton.bottomAnchor, constant: 120),
         ])
     }
     
