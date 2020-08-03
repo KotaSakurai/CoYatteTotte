@@ -212,9 +212,9 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
             if filterStatus == true {
                 let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: filterdImage.extent)!
                 
-                uiImageFilteredImage = UIImage(cgImage: cgImage, scale: 0,orientation: uiImage.imageOrientation)
+                uiImageFilteredImage = UIImage(cgImage: cgImage, scale: 0 ,orientation: uiImage.imageOrientation)
             } else {
-                uiImageFilteredImage = UIImage(ciImage: filterdImage, scale: 0,orientation: uiImage.imageOrientation)
+                uiImageFilteredImage = uiImage
             }
             
             if status == .none {
