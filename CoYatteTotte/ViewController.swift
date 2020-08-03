@@ -16,25 +16,23 @@ class ViewController: UIViewController {
         case preview
         case saving
     }
+    var status: Status = .none
+    var filterStatus: Bool = true
     
     let context = CIContext()
     let CrystallizeFilter = CIFilter(name: "CIPhotoEffectInstant")
-    
     var captureSession = AVCaptureSession()
     var mainCamera: AVCaptureDevice?
     // インカメの管理オブジェクトの作成
     var innerCamera: AVCaptureDevice?
     // 現在使用しているカメラデバイスの管理オブジェクトの作成
     var currentDevice: AVCaptureDevice?
-
     // キャプチャーの出力データを受け付けるオブジェクト
     var photoOutput : AVCapturePhotoOutput?
     @IBOutlet weak var cameraButton: UIButton!
     // プレビュー表示用のレイヤ
     let cameraPreviewLayer : AVCaptureVideoPreviewLayer = .init()
-
     var previewImage =  UIImageView()
-    
     let headerView: HeaderView = .init()
  
     let previewImageView: UIImageView = {
@@ -50,10 +48,6 @@ class ViewController: UIViewController {
         return view
     }()
     
-    var status: Status = .none
-    
-    var filterStatus: Bool = true
-        
     let slider: UISlider = {
         let view = UISlider.init()
         view.maximumValue = 1
@@ -79,8 +73,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var Policy: UITextView!
 
     @objc func sliderValue(_ sender: UISlider) {
-//        let sliderValue:Int = Int(sender.value)
-//        alpha.text = String(sender.value)
         previewImageView.alpha = CGFloat(sender.value)
     }
     
@@ -124,9 +116,11 @@ class ViewController: UIViewController {
     
     func settingFilter() {
         filterStatus = UserDefaults.standard.bool(forKey: "filter")
+        
+        captureSession.stopRunning()
+        captureSession.startRunning()
     }
     
-    //
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -152,24 +146,27 @@ class ViewController: UIViewController {
 
         let height: CGFloat = view.bounds.width * (4 / 3)
         self.cameraPreviewLayer.frame = CGRect.init(origin: .zero, size: CGSize.init(width: view.bounds.width, height: height))
-//        self.cameraImageView.layer.insertSublayer(self.cameraPreviewLayer, at: 0)
 
         NSLayoutConstraint.activate([
             previewImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
             previewImageView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
             previewImageView.widthAnchor.constraint(equalToConstant: view.bounds.width),
             previewImageView.heightAnchor.constraint(equalToConstant: height),
+            
             cameraImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
             cameraImageView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
             cameraImageView.widthAnchor.constraint(equalToConstant: view.bounds.width),
             cameraImageView.heightAnchor.constraint(equalToConstant: height),
+            
             slider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             slider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             slider.topAnchor.constraint(equalTo: cameraImageView.bottomAnchor, constant: 10),
+            
             cameraButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             cameraButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
             cameraButton.widthAnchor.constraint(equalToConstant: 60),
             cameraButton.heightAnchor.constraint(equalToConstant: 60),
+            
             resetButton.leadingAnchor.constraint(equalTo: cameraButton.trailingAnchor, constant: 10),
             resetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             resetButton.centerYAnchor.constraint(equalTo: cameraButton.centerYAnchor, constant: 0),
@@ -201,23 +198,22 @@ class ViewController: UIViewController {
 
 //MARK: AVCapturePhotoCaptureDelegateデリゲートメソッド
 extension ViewController: AVCapturePhotoCaptureDelegate{
-
     // 撮影した画像データが生成されたときに呼び出されるデリゲートメソッド
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(), let uiImage = UIImage(data: imageData) {
-            
             let filterdImage = CIImage(image: uiImage)!
             
             CrystallizeFilter!.setValue(filterdImage, forKey: kCIInputImageKey)
             
             let uiImageFilteredImage: UIImage
             
-            if filterStatus == false {
-               let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: filterdImage.extent)!
+            if filterStatus == true {
+                let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: filterdImage.extent)!
                 
                 uiImageFilteredImage = UIImage(cgImage: cgImage, scale: 0,orientation: uiImage.imageOrientation)
             } else {
-                uiImageFilteredImage = UIImage(ciImage: filterdImage)
+                uiImageFilteredImage = UIImage(ciImage: filterdImage, scale: 0,orientation: uiImage.imageOrientation)
+                print("filter status")
             }
             
             if status == .none {
@@ -310,8 +306,6 @@ func setupDevice() {
 
     // ボタンのスタイルを設定
     func styleCaptureButton() {
-//        cameraButton.layer.borderColor = UIColor.brandColor.cgColor
-//        cameraButton.layer.backgroundColor = UIColor.brandColor.cgColor
         cameraButton.layer.borderWidth = 5
         cameraButton.clipsToBounds = true
         cameraButton.layer.cornerRadius = min(cameraButton.frame.width, cameraButton.frame.height) / 2
@@ -325,7 +319,8 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let cameraImage = CIImage(cvImageBuffer: imageBuffer!)
         
-        if filterStatus == false {
+        if filterStatus == true {
+            print("status true")
             CrystallizeFilter!.setValue(cameraImage, forKey: kCIInputImageKey)
 
             let cgImage = self.context.createCGImage(CrystallizeFilter!.outputImage!, from: cameraImage.extent)!
@@ -335,6 +330,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 self.cameraImageView.image = filteredImage
             }
         } else {
+            print("status false")
             DispatchQueue.main.async {
                 self.cameraImageView.image = UIImage(ciImage: cameraImage)
             }

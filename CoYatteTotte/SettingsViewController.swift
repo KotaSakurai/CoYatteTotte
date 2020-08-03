@@ -119,7 +119,7 @@ class SettingsViewController: UIViewController {
             settingDefaultColorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             
             settingFilter.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            settingFilter.topAnchor.constraint(equalTo: colorHeader.bottomAnchor, constant: 120),
+            settingFilter.topAnchor.constraint(equalTo: settingBlueColorButton.bottomAnchor, constant: 120),
         ])
     }
     
