@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         case saving
     }
     var status: Status = .none
-    var filterStatus: Bool = UserDefaults.standard.bool(forKey: "filter")
+    var filterStatus: Bool = true
     
     let context = CIContext()
     let CrystallizeFilter = CIFilter(name: "CIPhotoEffectInstant")
@@ -115,7 +115,7 @@ class ViewController: UIViewController {
     }
     
     func settingFilter() {
-        filterStatus = UserDefaults.standard.bool(forKey: "filter")
+        filterStatus = !UserDefaults.standard.bool(forKey: "filter")
         
         captureSession.stopRunning()
         captureSession.startRunning()
@@ -130,7 +130,8 @@ class ViewController: UIViewController {
         self.view.addSubview(slider)
         self.view.addSubview(resetButton)
         self.view.addSubview(headerView)
-        print(filterStatus)
+        
+        filterStatus = !UserDefaults.standard.bool(forKey: "filter")
                 
         // Settings
         self.slider.addTarget(self, action: #selector(sliderValue), for: .valueChanged)
@@ -214,7 +215,6 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
                 uiImageFilteredImage = UIImage(cgImage: cgImage, scale: 0,orientation: uiImage.imageOrientation)
             } else {
                 uiImageFilteredImage = UIImage(ciImage: filterdImage, scale: 0,orientation: uiImage.imageOrientation)
-                print("filter status")
             }
             
             if status == .none {

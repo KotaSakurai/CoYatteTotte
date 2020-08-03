@@ -90,7 +90,7 @@ class SettingsViewController: UIViewController {
     
     @objc func toggleDefaultFilter(sender: UISwitch) {
         // toggleにしたい
-        UserDefaults.standard.set(sender.isOn, forKey: "filter")
+        UserDefaults.standard.set(!sender.isOn, forKey: "filter")
     }
 
     override func viewDidLoad() {
@@ -106,7 +106,7 @@ class SettingsViewController: UIViewController {
         self.view.addSubview(filterHeader)
         self.view.addSubview(settingFilter)
         
-        settingFilter.isOn = UserDefaults.standard.bool(forKey: "filter")
+        settingFilter.isOn = !UserDefaults.standard.bool(forKey: "filter")
         
         self.privacyButton.addTarget(self, action: #selector(openPrivacy), for: .touchDown)
         self.settingBlueColorButton.addTarget(self, action: #selector(setBlueUiColor), for: .touchDown)
