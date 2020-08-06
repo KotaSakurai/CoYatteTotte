@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class SettingsViewController: UIViewController {
     
@@ -91,6 +92,10 @@ class SettingsViewController: UIViewController {
     @objc func toggleDefaultFilter(sender: UISwitch) {
         // toggleにしたい
         UserDefaults.standard.set(!sender.isOn, forKey: "filter")
+        
+        Analytics.logEvent("FilterSetting", parameters: [
+          "type": !sender.isOn as NSObject,
+        ])
     }
 
     override func viewDidLoad() {
